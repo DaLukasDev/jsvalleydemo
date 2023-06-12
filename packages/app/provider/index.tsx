@@ -1,8 +1,12 @@
 import { CustomToast, TamaguiProvider, TamaguiProviderProps, ToastProvider } from '@my/ui'
 import { useColorScheme } from 'react-native'
-
-import { ToastViewport } from './ToastViewport'
 import config from '../tamagui.config'
+import { ToastViewport } from './ToastViewport'
+
+const serverURL = 'https://pocketbase.dalukas.dev'
+const collections = ['todos']
+const webRedirectURL = 'http://...'
+const mobileRedirectURL = 'expo://...' // for example
 
 export function Provider({ children, ...rest }: Omit<TamaguiProviderProps, 'config'>) {
   const scheme = useColorScheme()
