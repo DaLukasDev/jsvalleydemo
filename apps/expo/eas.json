@@ -15,9 +15,9 @@
       }
     },
     "production": {
-      "distribution": "store",
+      "distribution": "internal",
       "android": {
-        "buildType": "app-bundle"
+        "buildType": "apk"
       },
       "env": {
         "TAMAGUI_TARGET": "native"

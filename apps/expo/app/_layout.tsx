@@ -4,7 +4,7 @@ import { useFonts } from 'expo-font'
 import { Stack } from 'expo-router'
 import * as SystemUI from 'expo-system-ui'
 import { useEffect } from 'react'
-import { useColorScheme } from 'react-native'
+import { Platform, useColorScheme } from 'react-native'
 
 export default function HomeLayout() {
   const [loaded] = useFonts({
@@ -13,13 +13,13 @@ export default function HomeLayout() {
   })
   const scheme = useColorScheme()
 
-  useEffect(
-    () =>
+  useEffect(() => {
+    if (Platform.OS !== 'web') {
       void SystemUI.setBackgroundColorAsync(
         scheme === 'dark' ? DarkTheme.colors.background : DefaultTheme.colors.background
-      ),
-    [scheme]
-  )
+      )
+    }
+  }, [scheme])
 
   if (!loaded) {
     return null

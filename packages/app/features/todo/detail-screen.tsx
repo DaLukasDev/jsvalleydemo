@@ -3,13 +3,13 @@ import { Check, ChevronLeft, RefreshCw, X } from '@tamagui/lucide-icons'
 import { useColorTheme } from 'app/hooks/useColorTheme'
 import { useTodo } from 'app/hooks/useTodo'
 import { useToggleCompleted } from 'app/hooks/useToggleCompleted'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { createParam } from 'solito'
 import { useLink } from 'solito/link'
 
 const { useParam } = createParam<{ id: string }>()
 
-export function UserDetailScreen() {
+export function TodoDetailScreen() {
   const [id] = useParam('id')
   const { colors, setTheme, theme } = useColorTheme()
   const { updateTodo, isUpdating } = useToggleCompleted()
@@ -25,6 +25,9 @@ export function UserDetailScreen() {
       refetch()
     }
   }
+
+  useEffect(() => void refetch(), [id])
+
   return (
     <Theme name={theme}>
       <YStack f={1} jc="center" ai="center" space backgroundColor="$background">

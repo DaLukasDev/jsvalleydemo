@@ -1,13 +1,13 @@
-import { UserDetailScreen } from 'app/features/todo/detail-screen'
+import { TodoDetailScreen } from 'app/features/todo/detail-screen'
 import Head from 'next/head'
 
 export default function Page() {
   return (
     <>
       <Head>
-        <title>User</title>
+        <title>Todo</title>
       </Head>
-      <UserDetailScreen />
+      <TodoDetailScreen />
     </>
   )
 }

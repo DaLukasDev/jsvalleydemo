@@ -16,10 +16,14 @@ export const useTodo = (id?: string) => {
 
   const getTodo = async () => {
     setIsLoading(true)
-    if (!id) return
-    const todo = await pb.collection('todos').getOne<Todo>(id)
-    setTodo(todo)
-    setTimeout(() => setIsLoading(false), 1000)
+    if (!id) return setIsLoading(false)
+    try {
+      const todo = await pb.collection('todos').getOne<Todo>(id)
+      setTodo(todo)
+    } catch (e) {
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   const refetch = () => getTodo()

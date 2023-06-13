@@ -1,4 +1,4 @@
-import { UserDetailScreen } from 'app/features/todo/detail-screen'
+import { TodoDetailScreen } from 'app/features/todo/detail-screen'
 import { Stack } from 'expo-router'
 
 export default function Screen() {
@@ -9,7 +9,7 @@ export default function Screen() {
           title: 'Todo',
         }}
       />
-      <UserDetailScreen />
+      <TodoDetailScreen />
     </>
   )
 }
