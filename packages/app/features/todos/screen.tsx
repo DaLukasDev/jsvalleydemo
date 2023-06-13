@@ -14,7 +14,7 @@ import {
   useToastController,
 } from '@my/ui'
 import { ChevronDown, Plus, RefreshCw } from '@tamagui/lucide-icons'
-import { useColorTheme } from 'app/hooks/useColorTheme'
+import { TColors, useColorTheme } from 'app/hooks/useColorTheme'
 import { useCreateTodo } from 'app/hooks/useCreateTodo'
 import { useTodos } from 'app/hooks/useTodos'
 import React, { useState } from 'react'
@@ -25,7 +25,7 @@ export function TodoScreen() {
   const { colors, setTheme, theme } = useColorTheme()
   return (
     <Theme name={theme}>
-      <YStack f={1} jc="center" ai="center" p="$4" space>
+      <YStack f={1} jc="center" ai="center" p="$4" space backgroundColor="$background">
         <YStack space="$4" maw={600}>
           <H1 ta="center">Hi JSValley!</H1>
           <Separator />
@@ -33,7 +33,7 @@ export function TodoScreen() {
         </YStack>
 
         {isLoading ? (
-          <Spinner size="large" />
+          <Spinner size="large" color={`$${theme}5`} />
         ) : (
           todos?.map((t) => (
             <XStack key={t.id}>
@@ -52,7 +52,7 @@ export function TodoScreen() {
         )}
         <XStack gap="$4">
           <Button size="$6" icon={RefreshCw} circular onPress={() => refetch()} />
-          <SheetDemo refetch={refetch} />
+          <SheetDemo refetch={refetch} theme={theme} />
         </XStack>
         <XStack gap="$1.5">
           {colors.map((c) => (
@@ -66,7 +66,7 @@ export function TodoScreen() {
   )
 }
 
-function SheetDemo(props: { refetch: () => void }) {
+function SheetDemo(props: { refetch: () => void; theme: TColors }) {
   const [open, setOpen] = useState(false)
   const [todoText, setTodoText] = useState('')
   const [position, setPosition] = useState(0)
@@ -105,7 +105,7 @@ function SheetDemo(props: { refetch: () => void }) {
           <YStack space="$4" maw={600}>
             <H3 ta="center">Add a new todo:</H3>
             {isCreating ? (
-              <Spinner size="large" />
+              <Spinner size="large" color={`$${props.theme}5`} />
             ) : (
               <YStack space="$4">
                 <Input onChangeText={handleTextChange} value={todoText} />
