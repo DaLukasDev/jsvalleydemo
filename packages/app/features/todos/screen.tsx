@@ -8,61 +8,59 @@ import {
   Separator,
   Sheet,
   Spinner,
-  Theme,
   XStack,
   YStack,
   useToastController,
 } from '@my/ui'
 import { ChevronDown, Plus, RefreshCw } from '@tamagui/lucide-icons'
-import { TColors, useColorTheme } from 'app/hooks/useColorTheme'
+import { TColors } from 'app/hooks/useColorTheme'
 import { useCreateTodo } from 'app/hooks/useCreateTodo'
 import { useTodos } from 'app/hooks/useTodos'
+import { useThemeContext } from 'app/provider/ThemeProvider'
 import React, { useState } from 'react'
 import { useRouter } from 'solito/router'
 export function TodoScreen() {
   const { isLoading, todos, refetch } = useTodos()
   const router = useRouter()
-  const { colors, setTheme, theme } = useColorTheme()
+  const { colors, setTheme, currentTheme: theme } = useThemeContext()
   return (
-    <Theme name={theme}>
-      <YStack f={1} jc="center" ai="center" p="$4" space backgroundColor="$background">
-        <YStack space="$4" maw={600}>
-          <H1 ta="center">Hi JSValley!</H1>
-          <Separator />
-          <Paragraph ta="center">Your tasks for today:</Paragraph>
-        </YStack>
-
-        {isLoading ? (
-          <Spinner size="large" color={`$${theme}5`} />
-        ) : (
-          todos?.map((t) => (
-            <XStack key={t.id}>
-              <Button
-                onPress={() => router.push(`/todo/${t.id}`)}
-                href={`/todo/${t.id}`}
-                accessibilityRole="link"
-                style={{
-                  textDecoration: 'none',
-                }}
-              >
-                {t.text}
-              </Button>
-            </XStack>
-          ))
-        )}
-        <XStack gap="$4">
-          <Button size="$6" icon={RefreshCw} circular onPress={() => refetch()} />
-          <SheetDemo refetch={refetch} theme={theme} />
-        </XStack>
-        <XStack gap="$1.5">
-          {colors.map((c) => (
-            <Button key={c} onPress={() => setTheme(c)}>
-              <Circle backgroundColor={c} size={10} />
-            </Button>
-          ))}
-        </XStack>
+    <YStack f={1} jc="center" ai="center" p="$4" space backgroundColor="$background">
+      <YStack space="$4" maw={600}>
+        <H1 ta="center">Hi JSValley!</H1>
+        <Separator />
+        <Paragraph ta="center">Your tasks for today:</Paragraph>
       </YStack>
-    </Theme>
+
+      {isLoading ? (
+        <Spinner size="large" color={`$${theme}5`} />
+      ) : (
+        todos?.map((t) => (
+          <XStack key={t.id}>
+            <Button
+              onPress={() => router.push(`/todo/${t.id}`)}
+              href={`/todo/${t.id}`}
+              accessibilityRole="link"
+              style={{
+                textDecoration: 'none',
+              }}
+            >
+              {t.text}
+            </Button>
+          </XStack>
+        ))
+      )}
+      <XStack gap="$4">
+        <Button size="$6" icon={RefreshCw} circular onPress={() => refetch()} />
+        <SheetDemo refetch={refetch} theme={theme} />
+      </XStack>
+      <XStack gap="$1.5">
+        {colors.map((c) => (
+          <Button key={c} onPress={() => setTheme(c)}>
+            <Circle backgroundColor={c} size={10} />
+          </Button>
+        ))}
+      </XStack>
+    </YStack>
   )
 }
 

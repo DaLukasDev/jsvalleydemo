@@ -7,6 +7,7 @@ export default function Screen() {
       <Stack.Screen
         options={{
           title: 'Todo',
+          headerShown: false,
         }}
       />
       <TodoDetailScreen />
